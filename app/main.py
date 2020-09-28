@@ -22,7 +22,9 @@ def background_on_message(task):
 
 @app.get("/start/{iter_delay}")
 async def root(iter_delay: int, background_task: BackgroundTasks):
-    task = celery_app.send_task("app.worker.celery_worker.test_celery", args=[iter_delay])
+    task = celery_app.send_task(
+        "app.worker.celery_worker.test_celery", args=[iter_delay]
+    )
     background_task.add_task(background_on_message, task)
     return {"message": "task started", "task_id": task.id}
 
@@ -37,7 +39,7 @@ async def cancel(task_id: str):
 async def pause(task_id: str, background_task: BackgroundTasks):
     if AsyncResult(task_id).status == "PAUSE":
         background_task.add_task(background_on_message, AsyncResult(task_id))
-        return{"message": "already paused"}
+        return {"message": "already paused"}
     Task.update_state(self=test_celery, task_id=task_id, state="PAUSE")
     task = None
     while True:
@@ -52,7 +54,7 @@ async def pause(task_id: str, background_task: BackgroundTasks):
 async def resume(task_id: str, background_task: BackgroundTasks):
     if AsyncResult(task_id).status != "PAUSE":
         background_task.add_task(background_on_message, AsyncResult(task_id))
-        return{"message": "task already runing"}
+        return {"message": "task already runing"}
     Task.update_state(self=test_celery, task_id=task_id, state="RESUME")
     task = None
     while True:
