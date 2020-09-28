@@ -22,7 +22,7 @@ def background_on_message(task):
 
 @app.get("/start/{iter_delay}")
 async def root(iter_delay: int, background_task: BackgroundTasks):
-    task = celery_app.send_task("app.app.worker.celery_worker.test_celery", args=[iter_delay])
+    task = celery_app.send_task("app.worker.celery_worker.test_celery", args=[iter_delay])
     background_task.add_task(background_on_message, task)
     return {"message": "task started", "task_id": task.id}
 
