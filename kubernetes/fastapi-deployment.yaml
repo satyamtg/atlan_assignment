@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: fastapi
+  name: fastapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: fastapi
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: fastapi
+    spec:
+      containers:
+      - args:
+        - poetry
+        - run
+        - hypercorn
+        - app/main:app
+        - --bind
+        - 0.0.0.0:8000
+        - --reload
+        image: satyamtg/atlan_assignment:latest
+        imagePullPolicy: ""
+        name: fastapi
+        ports:
+        - containerPort: 8000
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
