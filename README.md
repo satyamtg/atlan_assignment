@@ -13,4 +13,4 @@ The API can be tested via the swagger UI at `:8000/docs` where `8000` is the por
 
 The project uses docker compose to create the containers and expose these ports. This can eaisly be deployed on Kubernetes using `kompose` or `kubectl` (after convertion of the resources though)
 
-A pre-made docker image can be found [here](https://hub.docker.com/satyamtg/atlan_assignment) and the kubernetes resource file to apply that using kubectl can be found [here]()
+A pre-made docker image can be found [here](https://hub.docker.com/repository/docker/satyamtg/atlan_assignment) and the kubernetes resource file to apply that using kubectl can be found [here]()
