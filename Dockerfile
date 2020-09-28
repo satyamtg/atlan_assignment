@@ -5,6 +5,7 @@ LABEL maintainer="Satyam Kumar <io.satyamtg@gmail.com>"
 ENV DOCKER=true
 
 COPY pyproject.toml .
+COPY app/ /app/
 
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir poetry && \
